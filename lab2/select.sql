@@ -1,17 +1,17 @@
--- Формирование списка студентов с группой КС-10
+-- Формирование списка студентов из группы КС-10
 SELECT students.student_name, groups.group_name
 FROM public.students
 INNER JOIN public.groups ON students.group_name = groups.group_id
 WHERE groups.group_id = 1;
 
--- Формирование списка студентов с группой КС-14, номером комнаты и стипендией меньше 4000 
+-- Формирование списка студентов из группы КС-14, номером комнаты и стипендией меньше 4000 
 SELECT students.student_name, groups.group_name, accommodations.room_number
 FROM public.students
 INNER JOIN public.groups ON students.group_name = groups.group_id
 INNER JOIN public.accommodations ON students.student_id = accommodations.student_name
 WHERE groups.group_id = 2 AND students.scholarship < 4000;
 
--- Формирование списка студентов с группой КС-10, номером комнаты, стипендией больше 2000 и расстоянием от общежития выше 500
+-- Формирование списка студентов из группы КС-10, номером комнаты, стипендией больше 2000 и расстоянием от общежития выше 500
 SELECT students.student_name, groups.group_name, accommodations.room_number
 FROM public.students
 INNER JOIN public.groups ON students.group_name = groups.group_id
