@@ -41,15 +41,15 @@ INNER JOIN public.students ON groups.group_id = students.group_name
 GROUP BY groups.group_name
 	HAVING SUM(students.scholarship) > 8600;
 
--- Формирование количества размещений и количества студентов из каждой группы
+-- Формирование количества размещений и студентов из каждой группы
 SELECT groups.group_name, COUNT(accommodations.accommodation_id) AS amount_of_accommodations, COUNT(students.student_id) AS amount_of_students
 FROM public.groups
 INNER JOIN public.students ON groups.group_id = students.group_name
 INNER JOIN public.accommodations ON students.student_id = accommodations.student_name
 GROUP BY groups.group_name;
 
--- Формирование списка групп в порядке возрастания средней стипендии, выраженной в милях, студентов из опреденной группы
-SELECT groups.group_name, (AVG(accommodations.distance) / 1.69) AS average_distance_mile
+-- Формирование списка групп в порядке возрастания средней дальности от общежития, выраженной в милях, студентов из опреденной группы
+SELECT groups.group_name, (AVG(accommodations.distance) / 1.61) AS average_distance_mile
 FROM public.groups
 INNER JOIN public.students ON groups.group_id = students.group_name
 INNER JOIN public.accommodations ON students.student_id = accommodations.student_name
