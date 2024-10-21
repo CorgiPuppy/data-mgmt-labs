@@ -48,13 +48,11 @@ INNER JOIN public.students ON groups.group_id = students.group_name
 INNER JOIN public.accommodations ON students.student_id = accommodations.student_name
 GROUP BY groups.group_name;
 
--- Формирование списка групп в порядке возрастания средней дальности от общежития, выраженной в милях, студентов из опреденной группы
-SELECT groups.group_name, (AVG(accommodations.distance) / 1.61) AS average_distance_mile
-FROM public.groups
-INNER JOIN public.students ON groups.group_id = students.group_name
+-- Формирование списка студентов в порядке возрастания дальности от общежития, выраженной в милях
+SELECT students.student_name, (accommodations.distance / 1.61) AS distance_mile
+FROM public.students
 INNER JOIN public.accommodations ON students.student_id = accommodations.student_name
-GROUP BY groups.group_name
-ORDER BY average_distance_mile ASC;
+ORDER BY distance_mile ASC;
 
 -- Формирование списка групп в порядке убывания средней стипендии студентов из определенной группы, учитывая, что размер стипендии выводится, исходя из налоговой ставки (13%) 
 SELECT groups.group_name, AVG(students.scholarship * (1 - 0.13)) AS average_scholarship
