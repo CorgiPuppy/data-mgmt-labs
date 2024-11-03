@@ -62,7 +62,7 @@ HAVING COUNT(students.student_id) = (SELECT COUNT(*)
 									 FROM public.students
 									 WHERE scholarship > 2300);
 
--- Формирование списка студентов, которые находятся в группе, где есть хотя бы один студент со стипендий выше 4000
+-- Формирование списка студентов, которые находятся в группе, где есть хотя бы один студент со стипендией выше 4000
 SELECT students.student_name, students.scholarship
 FROM public.students
 INNER JOIN (SELECT group_name
@@ -70,21 +70,15 @@ INNER JOIN (SELECT group_name
 			WHERE scholarship > 4000) AS high_scholarship_groups
 	ON students.group_name = high_scholarship_groups.group_name;
 
--- 11
-SELECT student_name
-FROM students s1
-WHERE s1.student_id IN (SELECT accommodation.student_name
-                        FROM accommodations accommodation
-                        WHERE accommodation.room_number IN
-                            (SELECT room_number
-                             FROM accommodations
-                             WHERE student_name IN
-                                   (SELECT student_id
-                                    FROM students
-                                    WHERE scholarship > 4000)));
+-- Формирование списка номеров комнат, в которых живут студенты, получающие стипендию вышее 2400
+SELECT DISTINCT room_number
+FROM accommodations
+WHERE student_name IN (SELECT student_id
+                       FROM students
+					   WHERE scholarship > 2400);
 
 -- Формирование списка пар студентов, которые получают одинаковую стипендию
 SELECT a.student_name AS student1, b.student_name AS student2 
 FROM public.students AS a 
-JOIN public.students AS b ON a.scholarship = b.scholarship 
+INNER JOIN public.students AS b ON a.scholarship = b.scholarship 
 WHERE a.student_id <> b.student_id;
