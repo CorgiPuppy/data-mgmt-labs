@@ -70,12 +70,12 @@ INNER JOIN (SELECT group_name
 			WHERE scholarship > 4000) AS high_scholarship_groups
 	ON students.group_name = high_scholarship_groups.group_name;
 
--- Формирование списка номеров комнат, в которых живут студенты, получающие стипендию вышее 2400
+-- Формирование списка номеров комнат, в которых живут студенты, получающие стипендию выше 2400
 SELECT DISTINCT rooms.room_number
 FROM public.accommodations
 INNER JOIN public.rooms ON rooms.room_id = accommodations.room_number
 WHERE student_name IN (SELECT student_id
-                       FROM students
+                       FROM public.students
 					   WHERE scholarship > 2400);
 
 -- Формирование списка пар студентов, которые получают одинаковую стипендию
