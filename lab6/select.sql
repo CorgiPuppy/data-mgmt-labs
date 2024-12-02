@@ -224,9 +224,9 @@ BEFORE INSERT ON accommodations
 FOR EACH ROW
 EXECUTE FUNCTION sum_distance();
 
+SELECT * FROM accommodations;
 INSERT INTO accommodations (accommodation_date, distance, room_number, student_name, neighbour_name) VALUES
         ('2005-08-20', 300, 1, 1, 2);
-
 SELECT * FROM accommodations;
 
 -- Формирование увеличения стипендии студентов на 10% перед обновлением
