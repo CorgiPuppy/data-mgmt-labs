@@ -189,7 +189,6 @@ RETURNS TRIGGER AS $$
 BEGIN
     RAISE NOTICE 'Удаляется размещение студента: %', OLD.accommodation_id;
 
-    -- Для вывода информации о родительских объектах
     IF EXISTS (SELECT 1 FROM rooms WHERE room_id = OLD.room_number) THEN
         RAISE NOTICE 'Удаляется комната с номером: %', OLD.room_number;
     END IF;
@@ -208,12 +207,12 @@ FOR EACH ROW EXECUTE FUNCTION notify_before_delete_accommodation();
 
 DELETE FROM accommodations WHERE accommodation_id = 1;
 
+-- Формирование суммы значений стипендий при добавлении новых студентов
 CREATE TABLE IF NOT EXISTS public.scholarship_sum
 	(
 		total_scholarship integer DEFAULT 0
 	);
 
--- Формирование суммы значений стипендий при добавлении новых студентов
 CREATE OR REPLACE FUNCTION update_scholarship_sum()
 RETURNS TRIGGER AS $$
 BEGIN
