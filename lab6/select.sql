@@ -205,7 +205,9 @@ CREATE OR REPLACE TRIGGER before_delete_accommodation
 BEFORE DELETE ON accommodations
 FOR EACH ROW EXECUTE FUNCTION notify_before_delete_accommodation();
 
+SELECT * FROM accommodations;
 DELETE FROM accommodations WHERE accommodation_id = 1;
+SELECT * FROM accommodations;
 
 -- Формирование суммы значений стипендий при добавлении новых студентов
 CREATE TABLE IF NOT EXISTS public.scholarship_sum
