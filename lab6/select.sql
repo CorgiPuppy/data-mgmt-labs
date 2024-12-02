@@ -209,32 +209,25 @@ SELECT * FROM accommodations;
 DELETE FROM accommodations WHERE accommodation_id = 1;
 SELECT * FROM accommodations;
 
--- Формирование суммы значений стипендий при добавлении новых студентов
-CREATE TABLE IF NOT EXISTS public.scholarship_sum
-	(
-		total_scholarship integer DEFAULT 0
-	);
-
-CREATE OR REPLACE FUNCTION update_scholarship_sum()
+-- Формирование суммы значений дистанции от общежития при добавлении новых размещений
+CREATE OR REPLACE FUNCTION sum_distance()
 RETURNS TRIGGER AS $$
-BEGIN
-    -- Обновляем сумму стипендий
-    UPDATE scholarship_sum
-    SET total_scholarship = total_scholarship + NEW.scholarship;
-
-    RETURN NEW;
+BEGIN 
+	NEW.distance := NEW.distance + (SELECT COALESCE(SUM(distance), 0)
+	FROM accommodations);
+	RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE TRIGGER ins_sum
-BEFORE INSERT ON students
-FOR EACH ROW EXECUTE FUNCTION update_scholarship_sum();
+BEFORE INSERT ON accommodations
+FOR EACH ROW
+EXECUTE FUNCTION sum_distance();
 
-INSERT INTO scholarship_sum (total_scholarship) VALUES (0);
+INSERT INTO accommodations (accommodation_date, distance, room_number, student_name, neighbour_name) VALUES
+        ('2005-08-20', 300, 1, 1, 2);
 
-SELECT * FROM scholarship_sum;
-INSERT INTO students (student_name, scholarship, group_name) VALUES ('Smirnov', 3000, 1);
-SELECT * FROM scholarship_sum;
+SELECT * FROM accommodations;
 
 -- Формирование увеличения стипендии студентов на 10% перед обновлением
 CREATE OR REPLACE FUNCTION before_update_value()
