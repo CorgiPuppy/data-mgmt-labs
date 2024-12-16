@@ -1,0 +1,6 @@
+{"_id":{"$oid":"6760387076b7903366a5c0dd"},"accommodation_date":"3.08.05","group_name":"КС-10","student_name":"Васильев","neighbour_name":"Гришин","distance":200,"room_number":14,"scholarship":2000}
+{"_id":{"$oid":"6760387076b7903366a5c0de"},"accommodation_date":"15.08.05","group_name":"КС-14","student_name":{"$ref":"students","$id":"Петр"},"neighbour_name":{"$ref":"students","$id":"Сида"},"distance":435,"room_number":37,"scholarship":2570}
+{"_id":{"$oid":"6760387076b7903366a5c0df"},"accommodation_date":"2.08.05","group_name":"КС-14","student_name":"Сидоров","neighbour_name":"Иванов","distance":112,"room_number":25,"scholarship":2000}
+{"_id":{"$oid":"6760387076b7903366a5c0e0"},"accommodation_date":"2.08.05","group_name":"КС-10","student_name":"Иванов","neighbour_name":"Сидоров","distance":240,"room_number":25,"scholarship":2240}
+{"_id":{"$oid":"6760387076b7903366a5c0e1"},"accommodation_date":"14.08.05","group_name":"КС-10","student_name":"Сидорова","neighbour_name":"Петрова","distance":1200,"room_number":37,"scholarship":4500}
+{"_id":{"$oid":"6760387076b7903366a5c0e2"},"accommodation_date":"4.08.05","group_name":"КС-14","student_name":"Гришин","neighbour_name":"Васильев","distance":780,"room_number":14,"scholarship":4000}
